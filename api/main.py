@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from sympy import symbols, Poly
 import secrets
 import hashlib
+import uvicorn
+
 
 app = FastAPI()
 
@@ -90,3 +92,11 @@ class EnhancedFiatShamir:
         rhs = reduce_poly(u_prime + c * EnhancedFiatShamir.apply_automorphism(b))
 
         return {"verified": lhs == rhs}
+
+@app.get("/")
+def home():
+    return {"message": "Fiat-Shamir API is running!"}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
