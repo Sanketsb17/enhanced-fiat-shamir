@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-import uvicorn
 from sympy import symbols, Poly
 import secrets
 import hashlib
@@ -78,6 +77,3 @@ def prove(s: str, A: str, b: str):
 @app.post("/verify")
 def verify(A: str, b: str, u_prime: str, z: str):
     return EnhancedFiatShamir.verify(Poly(eval(A)), Poly(eval(b)), Poly(eval(u_prime)), Poly(eval(z)))
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
